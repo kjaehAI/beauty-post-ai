@@ -96,33 +96,22 @@ export default function Home() {
         style,
       }),
     });
-
+  
     const data = await res.json();
-    console.log(data);
-    
-
-    const text = data.result || "";
-
-    const instagramMatch = text.match(
-      /\[INSTAGRAM\]([\s\S]*?)\[BLOG\]/
-    );
-
-    const blogMatch = text.match(
-      /\[BLOG\]([\s\S]*?)\[PLACE\]/
-    );
-
-    const placeMatch = text.match(
-      /\[PLACE\]([\s\S]*)/
-    );
-
-    const insta = instagramMatch?.[1]?.trim() || "";
-    const blog = blogMatch?.[1]?.trim() || "";
-    const place = placeMatch?.[1]?.trim() || "";
-
+  
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+  
+    const insta = data.instagram || "";
+    const blog = data.blog || "";
+    const place = data.place || "";
+  
     setInstagramText(insta);
     setBlogText(blog);
     setPlaceText(place);
-
+  
     const { error } = await supabase.from("posts").insert([
       {
         user_id: user.id,
@@ -132,12 +121,13 @@ export default function Home() {
         place_text: place,
       },
     ]);
-
+  
     if (error) {
       console.log(error);
       alert(error.message);
+      return;
     }
-
+  
     loadPosts();
   }
 
