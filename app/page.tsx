@@ -98,6 +98,8 @@ export default function Home() {
     });
 
     const data = await res.json();
+    console.log(data);
+    
 
     const text = data.result || "";
 
@@ -142,7 +144,7 @@ export default function Home() {
   async function handleGenerateImage() {
     try {
       setLoadingImage(true);
-
+  
       const res = await fetch("/api/image", {
         method: "POST",
         headers: {
@@ -155,13 +157,16 @@ export default function Home() {
           style,
         }),
       });
-
+  
       const data = await res.json();
-
+  
+      console.log(data);
+  
       setImageUrl(data.imageUrl);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      alert("이미지 생성 실패");
+  
+      alert(error?.message || "이미지 생성 실패");
     } finally {
       setLoadingImage(false);
     }
