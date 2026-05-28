@@ -21,14 +21,14 @@ export default function Home() {
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/login"
+            href="/"
             className="rounded-full bg-black px-8 py-4 font-semibold text-white shadow-lg"
           >
             무료 체험 시작하기
           </Link>
 
           <Link
-            href="/dashboard"
+            href="/"
             className="rounded-full bg-white px-8 py-4 font-semibold shadow"
           >
             서비스 바로가기
@@ -95,7 +95,7 @@ export default function Home() {
 
   <div className="mt-8">
     <a
-      href="/login"
+      href="/"
       className="rounded-full bg-pink-500 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-pink-400"
     >
       무료 체험 시작하기
