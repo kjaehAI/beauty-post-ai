@@ -1,6 +1,7 @@
 "use client";
-
+import { useState } from "react";
 export default function Home() {
+  const [showPopup, setShowPopup] = useState(true);
   const moveToSamples = () => {
     const section = document.getElementById("samples");
     if (section) {
@@ -10,6 +11,36 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-purple-50 text-gray-900">
+    {showPopup && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6">
+    <div className="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl">
+      <h2 className="text-3xl font-bold">
+        무료 체험 이벤트 ✨
+      </h2>
+
+      <p className="mt-4 text-gray-600">
+        자이보라 AI를 무료로 체험해보세요.
+      </p>
+
+      <div className="mt-8 flex flex-col gap-3">
+        <a
+          href="/generator"
+          className="rounded-full bg-pink-500 px-6 py-4 font-bold text-white"
+        >
+          무료 체험 시작하기
+        </a>
+
+        <button
+          type="button"
+          onClick={() => setShowPopup(false)}
+          className="rounded-full bg-gray-100 px-6 py-4 font-bold text-gray-700"
+        >
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       <section className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-20 text-center">
         <p className="mb-4 rounded-full bg-white px-4 py-2 text-sm shadow">
           Zyvora AI Beauty Marketing
