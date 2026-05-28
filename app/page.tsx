@@ -57,6 +57,51 @@ export default function Home() {
             </p>
           </div>
         </div>
+        <div className="mt-24 w-full">
+  <h2 className="text-center text-3xl font-bold">
+    AI가 만든 실제 홍보 예시 ✨
+  </h2>
+
+  <p className="mt-4 text-center text-gray-600">
+    자이보라 AI가 자동으로 제작한 실제 뷰티샵 홍보 콘텐츠입니다.
+  </p>
+
+  <div className="mt-10 grid gap-6 md:grid-cols-2">
+    <div className="overflow-hidden rounded-3xl bg-white shadow-lg">
+      <img
+        src="/sample1.png"
+        alt="sample1"
+        className="w-full"
+      />
+    </div>
+
+    <div className="overflow-hidden rounded-3xl bg-white shadow-lg">
+      <img
+        src="/sample2.png"
+        alt="sample2"
+        className="w-full"
+      />
+    </div>
+  </div>
+</div>
+<div className="mt-24 rounded-3xl bg-black px-10 py-16 text-center text-white">
+  <h2 className="text-4xl font-bold">
+    지금 바로 자이보라 AI를 경험해보세요 ✨
+  </h2>
+
+  <p className="mt-4 text-lg text-gray-300">
+    뷰티샵 전용 AI 마케팅 솔루션으로 홍보 시간을 줄이고 예약률을 높여보세요.
+  </p>
+
+  <div className="mt-8">
+    <a
+      href="/login"
+      className="rounded-full bg-pink-500 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-pink-400"
+    >
+      무료 체험 시작하기
+    </a>
+  </div>
+</div>
       </section>
     </main>
   );
