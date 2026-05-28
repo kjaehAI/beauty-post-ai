@@ -90,24 +90,37 @@ export default function GeneratorPage() {
         <div className="mt-10 space-y-6">
           <div>
             <label className="mb-2 block font-semibold">업종 입력</label>
-            <input
-              type="text"
-              placeholder="예: 네일샵, 피부샵"
-              value={shop}
-              onChange={(e) => setShop(e.target.value)}
-              className="w-full rounded-2xl border border-gray-300 p-4 outline-none focus:border-pink-400"
-            />
+            <select
+  value={shop}
+  onChange={(e) => setShop(e.target.value)}
+  className="w-full rounded-2xl border border-gray-300 p-4 outline-none focus:border-pink-400"
+>
+  <option value="">업종 선택</option>
+  <option value="네일샵">네일샵</option>
+  <option value="피부샵">피부샵</option>
+  <option value="속눈썹샵">속눈썹샵</option>
+  <option value="미용실">미용실</option>
+  <option value="왁싱샵">왁싱샵</option>
+  <option value="마사지샵">마사지샵</option>
+</select>
           </div>
 
           <div>
             <label className="mb-2 block font-semibold">분위기 입력</label>
-            <input
-              type="text"
-              placeholder="예: 감성, 고급스러운"
-              value={tone}
-              onChange={(e) => setTone(e.target.value)}
-              className="w-full rounded-2xl border border-gray-300 p-4 outline-none focus:border-pink-400"
-            />
+            <select
+  value={tone}
+  onChange={(e) => setTone(e.target.value)}
+  className="w-full rounded-2xl border border-gray-300 p-4 outline-none focus:border-pink-400"
+>
+  <option value="">분위기 선택</option>
+  <option value="감성">감성</option>
+  <option value="럭셔리">럭셔리</option>
+  <option value="화이트톤">화이트톤</option>
+  <option value="핑크톤">핑크톤</option>
+  <option value="블랙골드">블랙골드</option>
+  <option value="미니멀">미니멀</option>
+  <option value="러블리">러블리</option>
+</select>
           </div>
 
           <button
@@ -125,6 +138,20 @@ export default function GeneratorPage() {
           >
             {loadingImage ? "이미지 생성 중..." : "AI 이미지 생성하기"}
           </button>
+          {loadingImage && (
+  <div className="mt-8 rounded-3xl bg-pink-50 p-6 text-center">
+    <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-pink-200 border-t-pink-500" />
+
+    <h2 className="text-xl font-bold">
+      AI 이미지 생성 중입니다 ✨
+    </h2>
+
+    <p className="mt-2 text-gray-600">
+      고퀄리티 이미지를 만드는 중이라 20~60초 정도 걸릴 수 있어요.
+      잠시만 기다려주세요.
+    </p>
+  </div>
+)}
         </div>
 
         {result && (
@@ -147,16 +174,29 @@ export default function GeneratorPage() {
           </div>
         )}
 
-        {imageUrl && (
-          <div className="mt-10 rounded-3xl bg-gray-100 p-6">
-            <h2 className="mb-4 text-2xl font-bold">생성 이미지</h2>
-            <img
-              src={imageUrl}
-              alt="AI 생성 이미지"
-              className="w-full rounded-2xl"
-            />
-          </div>
-        )}
+{imageUrl && (
+  <div className="mt-10 rounded-3xl bg-gray-100 p-6">
+    <div className="mb-4 flex items-center justify-between">
+      <h2 className="text-2xl font-bold">
+        생성 이미지
+      </h2>
+
+      <a
+        href={imageUrl}
+        download="zyvora-ai-image.png"
+        className="rounded-xl bg-black px-4 py-2 text-sm font-bold text-white"
+      >
+        이미지 저장하기
+      </a>
+    </div>
+
+    <img
+      src={imageUrl}
+      alt="AI 생성 이미지"
+      className="w-full rounded-2xl"
+    />
+  </div>
+)}
       </div>
     </main>
   );
