@@ -7,40 +7,32 @@ const openai = new OpenAI({
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { shop, tone } = await req.json();
 
     const prompt = `
-${body.location}에 있는 ${body.business} 홍보 이미지.
-분위기는 ${body.style}.
-이벤트 내용은 ${body.event}.
-고급스럽고 감성적인 인스타그램 광고 스타일.
+Create a polished Instagram marketing poster for a Korean beauty salon.
+Business type: ${shop}
+Style: ${tone}
+Use soft pink, white, rose-gold colors.
+Luxury beauty marketing design.
+No unreadable text.
+Clean layout, modern, premium, square format.
 `;
 
-    const response = await openai.images.generate({
+    const image = await openai.images.generate({
       model: "gpt-image-1",
       prompt,
       size: "1024x1024",
     });
 
-    const imageBase64 = response.data?.[0]?.b64_json;
-
-    if (!imageBase64) {
-      return NextResponse.json(
-        { error: "이미지 생성 실패" },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({
-      imageUrl: `data:image/png;base64,${imageBase64}`,
+      image: `data:image/png;base64,${image.data?.[0]?.b64_json}`,
     });
-  } catch (error: any) {
-    console.log(error);
+  } catch (error) {
+    console.error(error);
 
     return NextResponse.json(
-      {
-        error: error.message || "서버 오류",
-      },
+      { error: "이미지 생성 중 오류가 발생했습니다." },
       { status: 500 }
     );
   }

@@ -7,64 +7,33 @@ const openai = new OpenAI({
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { shop, tone } = await req.json();
 
-    const prompt = `
-${body.location}에 있는 ${body.business} 홍보글 작성.
+    const response = await openai.responses.create({
+      model: "gpt-4o-mini",
+      input: `
+너는 뷰티샵 전문 인스타 마케팅 카피라이터야.
 
-이벤트:
-${body.event}
+업종: ${shop}
+분위기: ${tone}
 
-분위기:
-${body.style}
-
-반드시 아래 형식으로만 응답:
-
-[INSTAGRAM]
-인스타용 글
-
-[BLOG]
-블로그용 글
-
-[PLACE]
-네이버플레이스용 글
-`;
-
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
+조건:
+- 인스타그램 홍보글로 작성
+- 이모지 포함
+- 예약 유도 문구 포함
+- 너무 과장하지 않기
+- 한국어로 자연스럽게 작성
+`,
     });
-
-    const result =
-      completion.choices[0]?.message?.content || "";
-
-    const instagram =
-      result.split("[INSTAGRAM]")[1]?.split("[BLOG]")[0]?.trim() || "";
-
-    const blog =
-      result.split("[BLOG]")[1]?.split("[PLACE]")[0]?.trim() || "";
-
-    const place =
-      result.split("[PLACE]")[1]?.trim() || "";
 
     return NextResponse.json({
-      instagram,
-      blog,
-      place,
-      raw: result,
+      result: response.output_text,
     });
-  } catch (error: any) {
-    console.log(error);
+  } catch (error) {
+    console.error(error);
 
     return NextResponse.json(
-      {
-        error: error.message || "서버 오류",
-      },
+      { error: "홍보글 생성 중 오류가 발생했습니다." },
       { status: 500 }
     );
   }
